@@ -359,7 +359,6 @@ classdef responseClass<handle
             
             % Set time vector
             t = obj.wave.time(1:options.timesPerFrame*round(simu.dtOut/simu.dt,0):end,1);
-%             t = obj.wave.time(1:options.timesPerFrame:end,1);
             
             % Create grid using provided x and y coordinates
             x = linspace(options.axisLimits(1),options.axisLimits(2),200);

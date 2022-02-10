@@ -43,7 +43,6 @@ function Plot_AddedMass(hydro,varargin)
             Legends{3,i+2} = [varargin{1}.body{i}];
             a = a + m;
         end
-        FormatPlot2(Fig1,Title,Subtitles,XLables,YLables,X,Y,X1,Y1,Legends,Notes)    
-
+        FormatPlot(Fig1,Title,Subtitles,XLables,YLables,X,Y,Legends,Notes,X1,Y1)    
     end
 end

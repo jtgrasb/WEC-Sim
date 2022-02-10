@@ -9,7 +9,6 @@ WAMIT_hydro = Radiation_IRF(WAMIT_hydro,20,[],[],[],[]);
 % % WAMIT_hydro = Radiation_IRF_SS(WAMIT_hydro,[],[]);
 WAMIT_hydro = Excitation_IRF(WAMIT_hydro,20,[],[],[],[]);
 % Write_H5(WAMIT_hydro)
-% Plot_AddedMass(WAMIT_hydro)
 
 
 % clc; clear all; close all;
@@ -22,9 +21,10 @@ AQWA_hydro = Radiation_IRF(AQWA_hydro,150,[],[],[],[]);
 % % AQWA_hydro = Radiation_IRF_SS(AQWA_hydro,[],[]);
 AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
 % Write_H5(AQWA_hydro)
-% Plot_AddedMass(AQWA_hydro)
 
 
+Plot_AddedMass(WAMIT_hydro)
+Plot_AddedMass(AQWA_hydro)
 Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
 
 

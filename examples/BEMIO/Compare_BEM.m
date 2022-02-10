@@ -26,7 +26,9 @@ AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
 Plot_AddedMass(WAMIT_hydro)
 Plot_AddedMass(AQWA_hydro)
 Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
+Plot_RadiationDamping(WAMIT_hydro,AQWA_hydro)
 
+Plot_BEMIO(WAMIT_hydro,AQWA_hydro)
 
 %% from h5 file
 

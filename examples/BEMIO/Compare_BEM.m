@@ -31,6 +31,13 @@ Plot_ExcitationMagnitude(WAMIT_hydro)
 Plot_ExcitationMagnitude(AQWA_hydro)
 Plot_ExcitationMagnitude(WAMIT_hydro,AQWA_hydro)
 
+Plot_ExcitationPhase(WAMIT_hydro)
+Plot_ExcitationPhase(AQWA_hydro)
+Plot_ExcitationPhase(WAMIT_hydro,AQWA_hydro)
+
+Plot_ExcitationIRF(WAMIT_hydro)
+Plot_ExcitationIRF(AQWA_hydro)
+Plot_ExcitationIRF(WAMIT_hydro,AQWA_hydro)
 
 Plot_BEMIO(WAMIT_hydro,AQWA_hydro)
 

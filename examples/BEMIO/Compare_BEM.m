@@ -27,6 +27,11 @@ Plot_RadiationIRF(WAMIT_hydro)
 Plot_RadiationIRF(AQWA_hydro)
 Plot_RadiationIRF(WAMIT_hydro,AQWA_hydro)
 
+Plot_ExcitationMagnitude(WAMIT_hydro)
+Plot_ExcitationMagnitude(AQWA_hydro)
+Plot_ExcitationMagnitude(WAMIT_hydro,AQWA_hydro)
+
+
 Plot_BEMIO(WAMIT_hydro,AQWA_hydro)
 
 %% from h5 file

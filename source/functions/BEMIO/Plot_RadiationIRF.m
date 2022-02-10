@@ -71,6 +71,7 @@ function Plot_RadiationIRF(hydro,varargin)
         end  
         FormatPlot(Fig3,Title,Subtitles,XLables,YLables,X,Y,Legends,Notes,X1,Y1)  
     end
+    
 %     waitbar(3/6);
 
 end

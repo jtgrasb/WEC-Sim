@@ -1,6 +1,7 @@
 clear all;clc; close all
 %% From hydro structure (before h5)
 
+
 WAMIT_hydro = struct();
 WAMIT = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\WAMIT\RM3\rm3.out';
 
@@ -24,6 +25,13 @@ AQWA_hydro = Radiation_IRF(AQWA_hydro,150,[],[],[],[]);
 AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
 % Write_H5(AQWA_hydro)
 Plot_AddedMass(AQWA_hydro)
+%% From hydro structure (before h5)
+
+Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
+
+Plot_AddedMass(WAMIT_hydro)
+% hold on
+% Plot_AddedMass(AQWA_hydro)
 
 %% from h5 file
 

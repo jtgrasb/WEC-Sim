@@ -73,5 +73,6 @@ function Plot_RadiationIRF(hydro,varargin)
     end
     
 %     waitbar(3/6);
+saveas(Fig3,'Radiation_IRFs.png');
 
 end

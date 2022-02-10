@@ -1,43 +1,44 @@
 clear all;clc; close all
 %% From hydro structure (before h5)
 
-WAMIT_hydro = struct();
-WAMIT = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\WAMIT\RM3\rm3.out';
-WAMIT_hydro = Read_WAMIT(WAMIT_hydro,WAMIT,[]);
-WAMIT_hydro = Radiation_IRF(WAMIT_hydro,20,[],[],[],[]);
-WAMIT_hydro = Excitation_IRF(WAMIT_hydro,20,[],[],[],[]);
+% WAMIT_hydro = struct();
+% WAMIT = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\WAMIT\RM3\rm3.out';
+% WAMIT_hydro = Read_WAMIT(WAMIT_hydro,WAMIT,[]);
+% WAMIT_hydro = Radiation_IRF(WAMIT_hydro,20,[],[],[],[]);
+% WAMIT_hydro = Excitation_IRF(WAMIT_hydro,20,[],[],[],[]);
+% 
+% AQWA_hydro = struct();
+% AQWA_AH1 = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.AH1';
+% AQWA_LIS = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.LIS';
+% AQWA_hydro = Read_AQWA(AQWA_hydro, AQWA_AH1, AQWA_LIS);
+% AQWA_hydro = Radiation_IRF(AQWA_hydro,150,[],[],[],[]);
+% AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
 
-AQWA_hydro = struct();
-AQWA_AH1 = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.AH1';
-AQWA_LIS = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.LIS';
-AQWA_hydro = Read_AQWA(AQWA_hydro, AQWA_AH1, AQWA_LIS);
-AQWA_hydro = Radiation_IRF(AQWA_hydro,150,[],[],[],[]);
-AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
+load('wamit_aqwa.mat')
 
-
-Plot_AddedMass(WAMIT_hydro)
-Plot_AddedMass(AQWA_hydro)
-Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
-
-Plot_RadiationDamping(WAMIT_hydro)
-Plot_RadiationDamping(AQWA_hydro)
-Plot_RadiationDamping(WAMIT_hydro,AQWA_hydro)
-
-Plot_RadiationIRF(WAMIT_hydro)
-Plot_RadiationIRF(AQWA_hydro)
-Plot_RadiationIRF(WAMIT_hydro,AQWA_hydro)
-
-Plot_ExcitationMagnitude(WAMIT_hydro)
-Plot_ExcitationMagnitude(AQWA_hydro)
-Plot_ExcitationMagnitude(WAMIT_hydro,AQWA_hydro)
-
-Plot_ExcitationPhase(WAMIT_hydro)
-Plot_ExcitationPhase(AQWA_hydro)
-Plot_ExcitationPhase(WAMIT_hydro,AQWA_hydro)
-
-Plot_ExcitationIRF(WAMIT_hydro)
-Plot_ExcitationIRF(AQWA_hydro)
-Plot_ExcitationIRF(WAMIT_hydro,AQWA_hydro)
+% Plot_AddedMass(WAMIT_hydro)
+% Plot_AddedMass(AQWA_hydro)
+% Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
+% 
+% Plot_RadiationDamping(WAMIT_hydro)
+% Plot_RadiationDamping(AQWA_hydro)
+% Plot_RadiationDamping(WAMIT_hydro,AQWA_hydro)
+% 
+% Plot_RadiationIRF(WAMIT_hydro)
+% Plot_RadiationIRF(AQWA_hydro)
+% Plot_RadiationIRF(WAMIT_hydro,AQWA_hydro)
+% 
+% Plot_ExcitationMagnitude(WAMIT_hydro)
+% Plot_ExcitationMagnitude(AQWA_hydro)
+% Plot_ExcitationMagnitude(WAMIT_hydro,AQWA_hydro)
+% 
+% Plot_ExcitationPhase(WAMIT_hydro)
+% Plot_ExcitationPhase(AQWA_hydro)
+% Plot_ExcitationPhase(WAMIT_hydro,AQWA_hydro)
+% 
+% Plot_ExcitationIRF(WAMIT_hydro)
+% Plot_ExcitationIRF(AQWA_hydro)
+% Plot_ExcitationIRF(WAMIT_hydro,AQWA_hydro)
 
 Plot_BEMIO(WAMIT_hydro,AQWA_hydro)
 

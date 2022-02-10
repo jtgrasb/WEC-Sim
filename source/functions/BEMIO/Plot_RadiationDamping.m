@@ -50,4 +50,6 @@ function Plot_RadiationDamping(hydro,varargin)
     end
    
     % waitbar(2/6);
+    saveas(Fig2,'Radiation_Damping.png');
+
 end

@@ -55,5 +55,6 @@ function Plot_ExcitationIRF(hydro,varargin)
     end    
     
     % waitbar(6/6);
+saveas(Fig6,'Excitation_IRFs.png');
 
 end

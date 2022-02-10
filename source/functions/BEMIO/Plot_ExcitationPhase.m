@@ -47,5 +47,6 @@ function Plot_ExcitationPhase(hydro,varargin)
     end    
     
 %     waitbar(5/6);
+saveas(Fig5,'Excitation_Phase.png');
 
 end

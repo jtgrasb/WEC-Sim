@@ -26,13 +26,5 @@ Plot_ExcitationPhase(hydro,varargin)
 %% Excitation IRFs
 Plot_ExcitationIRF(hydro,varargin)
 
-% close(p);
-
-% saveas(Fig1,'Added_Mass.png');
-% saveas(Fig2,'Radiation_Damping.png');
-% saveas(Fig3,'Radiation_IRFs.png');
-% saveas(Fig4,'Excitation_Magnitude.png');
-% saveas(Fig5,'Excitation_Phase.png');
-% saveas(Fig6,'Excitation_IRFs.png');
 end
 

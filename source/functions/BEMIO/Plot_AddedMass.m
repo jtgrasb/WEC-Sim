@@ -49,4 +49,7 @@ function Plot_AddedMass(hydro,varargin)
     end
     
 %     waitbar(1/6);
+
+    saveas(Fig1,'Added_Mass.png');
+
 end

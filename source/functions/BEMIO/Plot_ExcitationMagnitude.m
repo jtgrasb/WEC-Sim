@@ -49,5 +49,6 @@ function Plot_ExcitationMagnitude(hydro,varargin)
    
     
 %     waitbar(4/6);
-    
+    saveas(Fig4,'Excitation_Magnitude.png');
+
 end

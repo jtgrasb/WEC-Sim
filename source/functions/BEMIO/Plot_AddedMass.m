@@ -1,7 +1,6 @@
 function Plot_AddedMass(hydro,varargin)
     clear X Y Legends
     Fig1 = figure('Position',[50,500,975,521]);
-%     Fig1 = figure(1)
     Title = ['Normalized Added Mass: $$\bar{A}_{i,j}(\omega) = {\frac{A_{i,j}(\omega)}{\rho}}$$'];
     Subtitles = {'Surge','Heave','Pitch'};
     XLables = {'$$\omega (rad/s)$$','$$\omega (rad/s)$$','$$\omega (rad/s)$$'};
@@ -37,11 +36,11 @@ function Plot_AddedMass(hydro,varargin)
         for i = 1:varargin{1}.Nb    
             m = varargin{1}.dof(i);
             Y1(1,i,:) = squeeze(varargin{1}.A(a+1,a+1,:));
-%             Legends{1,i} = [varargin{1}.body{i}];
+            Legends{1,i+2} = [varargin{1}.body{i}];
             Y1(2,i,:) = squeeze(varargin{1}.A(a+3,a+3,:));
-%             Legends{2,i} = [varargin{1}.body{i}];
+            Legends{2,i+2} = [varargin{1}.body{i}];
             Y1(3,i,:) = squeeze(varargin{1}.A(a+5,a+5,:));
-%             Legends{3,i} = [varargin{1}.body{i}];
+            Legends{3,i+2} = [varargin{1}.body{i}];
             a = a + m;
         end
         FormatPlot2(Fig1,Title,Subtitles,XLables,YLables,X,Y,X1,Y1,Legends,Notes)    

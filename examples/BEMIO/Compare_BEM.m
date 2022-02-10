@@ -3,30 +3,29 @@ clear all;clc; close all
 
 WAMIT_hydro = struct();
 WAMIT = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\WAMIT\RM3\rm3.out';
-
 WAMIT_hydro = Read_WAMIT(WAMIT_hydro,WAMIT,[]);
 WAMIT_hydro = Radiation_IRF(WAMIT_hydro,20,[],[],[],[]);
-% % WAMIT_hydro = Radiation_IRF_SS(WAMIT_hydro,[],[]);
 WAMIT_hydro = Excitation_IRF(WAMIT_hydro,20,[],[],[],[]);
-% Write_H5(WAMIT_hydro)
 
-
-% clc; clear all; close all;
 AQWA_hydro = struct();
 AQWA_AH1 = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.AH1';
 AQWA_LIS = 'C:\Users\kmruehl\Documents\GitHub\WEC-Sim\WEC-Sim\examples\BEMIO\AQWA\RM3\RM3.LIS';
-
 AQWA_hydro = Read_AQWA(AQWA_hydro, AQWA_AH1, AQWA_LIS);
 AQWA_hydro = Radiation_IRF(AQWA_hydro,150,[],[],[],[]);
-% % AQWA_hydro = Radiation_IRF_SS(AQWA_hydro,[],[]);
 AQWA_hydro = Excitation_IRF(AQWA_hydro,150,[],[],[],[]);
-% Write_H5(AQWA_hydro)
 
 
 Plot_AddedMass(WAMIT_hydro)
 Plot_AddedMass(AQWA_hydro)
 Plot_AddedMass(WAMIT_hydro,AQWA_hydro)
+
+Plot_RadiationDamping(WAMIT_hydro)
+Plot_RadiationDamping(AQWA_hydro)
 Plot_RadiationDamping(WAMIT_hydro,AQWA_hydro)
+
+Plot_RadiationIRF(WAMIT_hydro)
+Plot_RadiationIRF(AQWA_hydro)
+Plot_RadiationIRF(WAMIT_hydro,AQWA_hydro)
 
 Plot_BEMIO(WAMIT_hydro,AQWA_hydro)
 

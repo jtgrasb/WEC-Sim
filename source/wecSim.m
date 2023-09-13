@@ -50,12 +50,7 @@ catch e %e is an MException struct
         fprintf(e.cause{i}.message);
         fprintf('\n');
     end
-            % terminate MoorDyn Conhost.exe instances.
-if libisloaded('Lines')
-    calllib('Lines','LinesClose');
-    unloadlibrary Lines;
 end
- end
 
 
 % Post-processing

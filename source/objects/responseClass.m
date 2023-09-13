@@ -298,7 +298,7 @@ classdef responseClass<handle
             end
             
             % load Lines.out
-            filename = './Mooring/Lines.out';
+            filename = './Mooring/lines.out';
             fid = fopen(filename, 'r');
             header = strsplit(fgetl(fid));
             data = dlmread(filename,'',1,0);
@@ -311,7 +311,7 @@ classdef responseClass<handle
             % load Line#.out
             for iline=1:linesNum
                 eval(['obj.moorDyn.Line' num2str(iline) '=struct();']);
-                filename = ['./Mooring/Line' num2str(iline) '.out'];
+                filename = ['./Mooring/lines_line' num2str(iline) '.out'];
                 try
                     fid = fopen(filename);
                     header = strsplit(strtrim(fgetl(fid)));

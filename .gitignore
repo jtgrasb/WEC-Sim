@@ -87,6 +87,7 @@ examples/**/**/*.png
 # moorDyn
 source/functions/moorDyn/*
 !source/functions/moorDyn/README.md
+!source/functions/moorDyn/MoorDyn_caller.m
 
 # docs build directory
 docs/_build

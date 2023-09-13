@@ -44,6 +44,7 @@ classdef mooringClass<handle
     end
 
     properties (SetAccess = 'private', GetAccess = 'public') %internal
+        system = uint64(16);                                               % MoorDyn system structure 
         orientation             = []                                       % (`float 1 x 6`) Initial 6DOF location. Default = ``[0 0 0 0 0 0]``        
         number                  = []                                       % (`integer`) Mooring number. Default = ``'NOT DEFINED'``        
     end
@@ -56,6 +57,10 @@ classdef mooringClass<handle
             else
                 error('The mooring class number(s) in the wecSimInputFile must be specified in ascending order starting from 1. The mooringClass() function should be called first to initialize each mooring line with a name.')
             end
+        end
+
+        function create_moordyn(obj)
+            obj.system = MoorDynM_Create('Mooring/lines.txt');
         end
 
         function checkInputs(obj)

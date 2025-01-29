@@ -37,12 +37,12 @@ jobs:
         uses: matlab-actions/run-command@v2
         with:
           command: |
-            addpath(genpath('source'));
+            addpath(genpath('source')),
             try
-                set_param(0, 'ErrorIfLoadNewModel', 'off');
+                set_param(0, 'ErrorIfLoadNewModel', 'off'),
 	    catch ME
-                disp('Warning: Unable to set ErrorIfLoadNewModel. Proceeding without this setting.');
-                disp(ME.message);
+                disp('Warning: Unable to set ErrorIfLoadNewModel. Proceeding without this setting.'),
+                disp(ME.message),
             end
             results = wecSimTest,
             assertSuccess(results);

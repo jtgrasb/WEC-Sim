@@ -38,12 +38,8 @@ jobs:
         with:
           command: |
             addpath(genpath('source')),
-            try
-                set_param(0, 'ErrorIfLoadNewModel', 'off'),
-	    catch ME
-                disp('Warning: Unable to set ErrorIfLoadNewModel. Proceeding without this setting.'),
-                disp(ME.message),
-            end
+            disp(get_param(0, 'ErrorIfLoadNewModel'))
+            set_param(0, 'ErrorIfLoadNewModel', 'off'),
             results = wecSimTest,
             assertSuccess(results);
           startup-options: -noFigureWindows

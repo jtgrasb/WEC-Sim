@@ -220,11 +220,11 @@ classdef mooringClass<handle
             disp('---------------Starting MoorDyn-----------')
 
             if ismac
-                loadlibrary('libmoordyn.dylib','MoorDyn2.h');
+                loadlibrary('libmoordyn.dylib','MoorDyn2WS.h');
             elseif ispc
-                loadlibrary('libmoordyn.dll','MoorDyn2.h');
+                loadlibrary('libmoordyn.dll','MoorDyn2WS.h');
             elseif isunix
-                loadlibrary('libmoordyn.so','MoorDyn2.h');
+                loadlibrary('libmoordyn.so','MoorDyn2WS.h');
             else
                 disp('Cannot run MoorDyn in this platform');
             end

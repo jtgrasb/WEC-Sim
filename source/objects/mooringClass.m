@@ -209,22 +209,22 @@ classdef mooringClass<handle
             obj.number = number;
         end
 
-        function callMoorDynLib(obj)
+        function mdStruct = callMoorDynLib(obj)
             % Initialize MoorDyn Lib (Windows:dll or OSX:dylib)
             
             if libisloaded('libmoordyn')
-                calllib('libmoordyn', 'MoorDynClose');
+                closeMoorDynLib(obj)
                 unloadlibrary libmoordyn;
             end
             
             disp('---------------Starting MoorDyn-----------')
 
             if ismac
-                loadlibrary('libmoordyn.dylib','MoorDyn.h');
+                loadlibrary('libmoordyn.dylib','MoorDyn2.h');
             elseif ispc
-                loadlibrary('libmoordyn.dll','MoorDyn.h');
+                loadlibrary('libmoordyn.dll','MoorDyn2.h');
             elseif isunix
-                loadlibrary('libmoordyn.so','MoorDyn.h');
+                loadlibrary('libmoordyn.so','MoorDyn2.h');
             else
                 disp('Cannot run MoorDyn in this platform');
             end
@@ -236,14 +236,18 @@ classdef mooringClass<handle
                 end
             end
             
-            calllib('libmoordyn', 'MoorDynInit', orientationTotal, zeros(1,length(orientationTotal)), obj(1).moorDynInputFile);
+            mdStruct = calllib('libmoordyn','MoorDyn_Create',obj(1).moorDynInputFile);
+            calllib('libmoordyn', 'MoorDyn_Init', mdStruct, orientationTotal, zeros(1,length(orientationTotal)));
             disp('MoorDyn Initialized. Now time stepping...')
         end
 
         function closeMoorDynLib(obj)
-            % Close MoorDyn Lib
-            calllib('libmoordyn', 'MoorDynClose');
-            unloadlibrary libmoordyn;
+            % Close MoorDyn library
+            if evalin('base', 'exist(''mdStruct'',''var'')')
+                mdStruct = evalin('base', 'mdStruct');
+                calllib('libmoordyn', 'MoorDyn_Close', mdStruct);
+                evalin('base', 'clear mdStruct');
+            end
         end
 
     end

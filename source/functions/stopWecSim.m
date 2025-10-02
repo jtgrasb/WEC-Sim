@@ -11,6 +11,7 @@ end
 if simu.numMoorDyn > 0
     % Close MoorDyn
     mooring.closeMoorDynLib();
+    unloadlibrary libmoordyn;
 end
 
 % Clear intermediate variables and variant subsystem flags

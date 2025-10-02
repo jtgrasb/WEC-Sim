@@ -178,7 +178,7 @@ if exist('mooring','var') == 1
     end; clear ii
     % Initialize MoorDyn
     if simu.numMoorDyn > 0
-        mooring.callMoorDynLib();
+        mdStruct = mooring.callMoorDynLib();
     end
 end
 

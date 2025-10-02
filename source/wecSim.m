@@ -42,8 +42,8 @@ try
     sim(simu.simMechanicsFile, [], simset('SrcWorkspace','parent'));
 catch e % e is an MException struct
     % terminate MoorDyn Conhost.exe instances before the error is thrown
-    if libisloaded('libmoordyn')
-        calllib('libmoordyn','MoorDynClose');
+    if exist('mdStruct')
+        mooring.closeMoorDynLib();
         unloadlibrary libmoordyn;
     end
 

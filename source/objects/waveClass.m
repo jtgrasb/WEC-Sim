@@ -649,6 +649,12 @@ classdef waveClass<handle
                 if ~isempty(bemWaterDepth)
                     warning('Because water depth is specified in the wecSimInputFile, the water depth from the BEM data is ignored')
                 end
+                if isinf(obj.waterDepth)
+                    obj.deepWater = 1;
+                    obj.waterDepth = 200;
+                else
+                    obj.deepWater = 0;
+                end
             end
         end
 

@@ -65,6 +65,7 @@ classdef waveClass<handle
         amplitude       = [];                       % Wave amplitude [m] for regular waves or 2*(wave spectrum vector) for irregular waves
         deepWater       = [];                       % Deep water or not, depending on input from WAMIT, NEMOH and AQWA
         dOmega          = 0;                        % Frequency spacing [rad] for ``irregular`` waves.
+        dTheta          = 0;                        % Direction spacing [rad] for ``full directional`` waves.
         omega           = [];                       % Wave frequency (regular waves) or wave frequency vector (irregular waves), where omega = 2*pi/period [rad/s]
         phase           = 0;                        % (`float`) Wave phase [rad] . Only used for ``irregular`` waves.
         power           = [];                       % Wave Power Per Unit Wave Crest [W/m]
@@ -353,6 +354,9 @@ classdef waveClass<handle
                             obj.dOmega(1,1)= obj.omega(2)-obj.omega(1);
                             obj.dOmega(2:obj.bem.count-1,1)=(obj.omega(3:end)-obj.omega(1:end-2))/2;
                             obj.dOmega(obj.bem.count,1)= obj.omega(end)-obj.omega(end-1);
+                            obj.dTheta(1,1)= deg2rad(obj.fullDirectionalSpectrum.directions(2)-obj.fullDirectionalSpectrum.directions(1));
+                            obj.dTheta(2:length(obj.fullDirectionalSpectrum.directions)-1,1)=deg2rad((obj.fullDirectionalSpectrum.directions(3:end)-obj.fullDirectionalSpectrum.directions(1:end-2))/2);
+                            obj.dTheta(length(obj.fullDirectionalSpectrum.directions),1)= deg2rad(obj.fullDirectionalSpectrum.directions(end)-obj.fullDirectionalSpectrum.directions(end-1));
                             obj.setWavePhase;
                             obj.irregWaveSpectrum(g,rho)
                             obj.wavenumber = calcWaveNumber(obj.omega,obj.waterDepth,g,obj.deepWater);
@@ -830,7 +834,7 @@ classdef waveClass<handle
             end
         end
 
-        function waveElevFullDir(obj,rampTime,timeseries,df);
+        function waveElevFullDir(obj,rampTime,timeseries,df)
             % Calculate irregular wave elevetaion time history
             % used by: :meth:`waveClass.setup`.
             % Used by postProcess for variable time step
@@ -852,11 +856,11 @@ classdef waveClass<handle
             end
             % Calculate eta at origin (0,0,0)
             for i = 1:length(timeseries)
-                tmp  = sqrt(obj.amplitude.*repmat(df,[1,length(obj.fullDirectionalSpectrum.directions)]));
+                tmp  = sqrt(obj.amplitude.*df.*obj.dTheta');
                 tmp1 = tmp.*real(exp(sqrt(-1).*(repmat(obj.omega,[1,length(obj.fullDirectionalSpectrum.directions)]).*timeseries(i) + obj.phase.')));
                 obj.waveAmpTime(i,2) = rampFunction(i)*sum(tmp1,'all');
 
-                if ~isempty(obj.marker.location);
+                if ~isempty(obj.marker.location)
                     for j = 1:SZwaveAmpTimeViz(1)
                         tmp14 = tmp.*real(exp(sqrt(-1).*(repmat(obj.omega,[1,length(obj.fullDirectionalSpectrum.directions)]).*timeseries(i) ...
                             - repmat(obj.wavenumber,[1,length(obj.fullDirectionalSpectrum.directions)]).*(obj.marker.location(j,1).*cos(obj.fullDirectionalSpectrum.directions*pi/180) ...

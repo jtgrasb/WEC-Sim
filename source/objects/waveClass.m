@@ -744,9 +744,6 @@ classdef waveClass<handle
                     obj.spectrum = fSpectrum./(2*pi);                                       % Wave Spectrum [m^2-s/rad] for 'Traditional'
                     fprintf('\t"spectrumImport" uses the number of imported wave frequencies (not "Traditional" or "EqualEnergy")\n')
                 case 'spectrumImportFullDir' % imported wave spectrum, frequency resolved dir and spread
-                    %data = importdata(obj.spectrumFile);
-                    %freqData = data(:,1);
-                    %S_data = data(:,2);
                     freqLoc = obj.omega(:,1)./(2*pi) >= min(obj.bem.range)/2/pi & obj.omega(:,1)./(2*pi) <= max(obj.bem.range)/2/pi;
                     fSpectrum = obj.fullDirectionalSpectrum.spread(freqLoc,:).*obj.fullDirectionalSpectrum.spectrum(freqLoc);                                    % Wave Spectrum [m^2-s] for 'EqualEnergy'
                     obj.spectrum = fSpectrum./(2*pi);                                       % Wave Spectrum [m^2-s/rad] for 'Traditional'

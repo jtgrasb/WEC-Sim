@@ -48,6 +48,21 @@ Example using WEC-Sim to simulate :ref:`free decay <user-advanced-features-decay
 of a sphere in heave, using :ref:`Multiple Condition Runs <user-advanced-features-mcr>`. 
 Execute the `runFreeDecay.m` script to run this case.
 
+Full-Directional Waves
+^^^^^^^^^^^^^^^^^^^^^^
+
+Two examples using WEC-Sim to simulate full directional wave spectra :ref:`user-code-structure-full-dir`.
+The `MHKiT_NDBC_Waves` example uses data from `MHKiT's directional wave example 
+<https://mhkit-software.github.io/MHKiT/directional_waves.html#Directional-Wave-Spectrum-from-NDBC-Buoys>`_ 
+to generate full directional waves. The `OOI_Waves` example is based on data from 
+the Ocean Observatories Initiative (OOI) that was used to model the 
+`Pioneer Buoy <https://github.com/WEC-Sim/pioneerWEC>`_ and demonstrates a 
+spectrum conversion from OOI's format to the IEC standard.
+
+.. Note::
+  The spread for the `MHKiT_NDBC_Waves` example has been adjusted to avoid 
+  negative values as suggested by `NDBC <https://www.ndbc.noaa.gov/faq/measdes.shtml>`_.
+
 Generalized Body Modes
 ^^^^^^^^^^^^^^^^^^^^^^
 

@@ -54,10 +54,6 @@ classdef waveClass<handle
             'numPointsY',                           50 );                   % (`structure`) Defines visualization options, structure contains the fields ``numPointsX`` for the number of visualization points in x direction, and ``numPointsY`` for the number of visualization points in y direction.
         waterDepth (1,:) {mustBeScalarOrEmpty}      = [];                   % (`float`) Water depth [m]. Default to BEM water depth if not set.
         spread (1,:) {mustBeNumeric}                = 1;                    % (`float`) Wave Spread probability associated with wave direction(s). Should be defined as a row vector for more than one wave direction. Default = ``1``
-        fullDirectionalSpectrum (1,1) struct        = struct(...            % 
-            'spectrum',                             [], ...                 % 
-            'spread',                               [], ...                 % 
-            'directions',                           []);                    % (`structure`) Contains all parameters relevant to the importSpectraFullDir wave type. ``spectrum`` (`float`) omnidirectional spectrum as a function of frequency (m2/Hz) (nFreq x 1). Default = ``'NOT DEFINED'``. ``spread`` (`float`) spread as a function of frequency and direction (1/Hz/deg) (nFreq x nDirs). Default = ``'NOT DEFINED'``. ``directions`` (`float`) wave direction at each frequency (deg) (nFreq x 1). Default = ``'NOT DEFINED'``.
     end
 
     properties (SetAccess = 'private', GetAccess = 'public')%internal
@@ -66,6 +62,10 @@ classdef waveClass<handle
         deepWater       = [];                       % Deep water or not, depending on input from WAMIT, NEMOH and AQWA
         dOmega          = 0;                        % Frequency spacing [rad] for ``irregular`` waves.
         dTheta          = 0;                        % Direction spacing [rad] for ``full directional`` waves.
+        fullDirectionalSpectrum (1,1) struct = struct(... % 
+            'spectrum', [], ...                     % 
+            'spread', [], ...                       % 
+            'directions', [])                       % (`structure`) Contains all parameters relevant to the importSpectraFullDir wave type. ``spectrum`` (`float`) omnidirectional spectrum as a function of frequency (m2/Hz) (nFreq x 1). Default = ``'NOT DEFINED'``. ``spread`` (`float`) spread as a function of frequency and direction (1/Hz/rad) (nFreq x nDirs). Default = ``'NOT DEFINED'``. ``directions`` (`float`) wave direction at each frequency (deg) (nFreq x 1). Default = ``'NOT DEFINED'``.
         omega           = [];                       % Wave frequency (regular waves) or wave frequency vector (irregular waves), where omega = 2*pi/period [rad/s]
         phase           = 0;                        % (`float`) Wave phase [rad] . Only used for ``irregular`` waves.
         power           = [];                       % Wave Power Per Unit Wave Crest [W/m]

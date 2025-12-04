@@ -595,7 +595,7 @@ classdef responseClass<handle
                     nLeading = ceil(log10(max(t)));
                     tAnnot = sprintf(['time = %' num2str(nDecimals+nLeading+1) '.' num2str(nDecimals) 'f s'],t(i));
                     % Settings and labels
-                    caxis([min(waves.waveAmpTime(:,2)) max(waves.waveAmpTime(:,2))])
+                    clim([min(waves.waveAmpTime(:,2)) max(waves.waveAmpTime(:,2))])
                     colormap winter
                     c = colorbar;
                     ylabel(c, 'Wave Elevation (m)')

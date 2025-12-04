@@ -490,14 +490,11 @@ classdef waveClass<handle
                         end
                     end
                 case {'spectrumImportFullDir'} %%%%%
-                    [m,n] = size(X);
-                    Z = zeros([m,n]);
-                    for im = 1:m
-                        for in = 1:n
-                            Xt(im,in) = X(m,n).*cos(obj.dirBins.*pi/180) + Y*sin(obj.dirBins.*pi/180);
-                            temp =  sqrt(repmat(obj.amplitude,[1,obj.nBins]) .* obj.spreadWeights .*repmat(obj.dOmega,[1,obj.nBins])) .* cos(-1.*repmat(obj.wavenumber,[1,obj.nBins]) .* Xt(im,in) ...
-                                + repmat(obj.omega,[1,obj.nBins]) + obj.phase);
-                            Z(im,in) = sum(temp,'all');
+                    Z = zeros(size(X));
+                    for idir=1:length(obj.fullDirectionalSpectrum.directions)
+                        Xt = X*cos(obj.fullDirectionalSpectrum.directions(idir)*pi/180) + Y*sin(obj.fullDirectionalSpectrum.directions(idir)*pi/180);
+                        for iw = 1:length(obj.omega)
+                            Z = Z + sqrt(obj.amplitude(iw,idir).*obj.dOmega(iw).*obj.dTheta(idir)) * cos(-1*obj.wavenumber(iw)*Xt + obj.omega(iw)*t + obj.phase(iw,idir));
                         end
                     end
                 case{'elevationImport'}
@@ -621,7 +618,7 @@ classdef waveClass<handle
                     end
                 case {'ImportedFullDir'}
                     data = importdata(obj.spectrumFile);
-                    obj.phase = 2 * pi * rand([obj.bem.count,length(obj.fullDirectionalSpectrum.directions)]);
+                    obj.phase = 2 * pi * rand([length(obj.fullDirectionalSpectrum.directions),obj.bem.count]);
             end
             obj.phase = obj.phase';
         end
@@ -854,14 +851,14 @@ classdef waveClass<handle
             % Calculate eta at origin (0,0,0)
             for i = 1:length(timeseries)
                 tmp  = sqrt(obj.amplitude.*df.*obj.dTheta');
-                tmp1 = tmp.*real(exp(sqrt(-1).*(repmat(obj.omega,[1,length(obj.fullDirectionalSpectrum.directions)]).*timeseries(i) + obj.phase.')));
+                tmp1 = tmp.*real(exp(sqrt(-1).*(repmat(obj.omega,[1,length(obj.fullDirectionalSpectrum.directions)]).*timeseries(i) + obj.phase)));
                 obj.waveAmpTime(i,2) = rampFunction(i)*sum(tmp1,'all');
 
                 if ~isempty(obj.marker.location)
                     for j = 1:SZwaveAmpTimeViz(1)
                         tmp14 = tmp.*real(exp(sqrt(-1).*(repmat(obj.omega,[1,length(obj.fullDirectionalSpectrum.directions)]).*timeseries(i) ...
                             - repmat(obj.wavenumber,[1,length(obj.fullDirectionalSpectrum.directions)]).*(obj.marker.location(j,1).*cos(obj.fullDirectionalSpectrum.directions*pi/180) ...
-                            + obj.marker.location(j,2).*sin(obj.fullDirectionalSpectrum.directions.*pi/180)) + obj.phase.')));
+                            + obj.marker.location(j,2).*sin(obj.fullDirectionalSpectrum.directions.*pi/180)) + obj.phase)));
                         obj.waveAmpTimeViz(i,j+1) = rampFunction(i).*sum(tmp14,'all');
                     end
                 end

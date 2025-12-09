@@ -946,14 +946,15 @@ Large X-Y Displacements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default, the excitation force applied to the modeled body is calculated at the body's CG position as defined in BEM. 
-If large lateral displacements (i.e., in the x or y direction by the default WEC-Sim coordinate system) are expected for the modeled device, it may be desirable to adjust the excitation force to account for this displacment. 
+If large lateral displacements (i.e., in the x- or y-direction by the default WEC-Sim coordinate system) are expected for the modeled device, it may be desirable to adjust the excitation force to account for this displacment. 
 
 When :code:`body(i).largeXYDisplacement.option = 1`, the phase of the excitation force exerted on the body is adjusted based upon its displacement as
 
-:math:`\phi_{displacement} = k \omega x(1)*cos(\frac{\theta \pi}{180}) + x(2).*sin(\frac{\theta \pi}{180})`
+:math:`\phi_{displacement} = k (x cos(\frac{\theta \pi}{180}) + y sin(\frac{\theta \pi}{180}))`
 
-where k is waves.wavenumber, x(1,2) is displacement in the (x,y) direction, :math:`\omega` is waves.omega, and :math:`\theta` is waves.direction (in degrees). 
-This phase is thus the same size as waves.phase, and is then summed with waves.phase to determine excitation force.
+where k is the wavenumber (:code:`waves.wavenumber`), x is the instantaneous displacement relative to the body's center of gravity in the x-direction, y is the instantaneous 
+displacement relative to the body's center of gravity in the y-direction, and :math:`\theta` is the the wave direction in degrees (:code:`waves.direction`). 
+This phase is thus the same size as :code:`waves.phase`, and is then summed with the wave phase to determine excitation forces.
 
 Note that this adjustment only affects the incident exciting waves, not the total wave field that is the superposition of exciting and radiating waves. 
 This implies that this adjustment is only valid for cases where the lateral velocity of the body is significantly less than the celerity of its radiated waves, and is thus not appropriate for sudden, rapid displacements. 

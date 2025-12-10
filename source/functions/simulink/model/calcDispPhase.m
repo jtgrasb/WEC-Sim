@@ -1,4 +1,4 @@
-function [dispPhase] = calcDispPhase(disp, enable, direction, frequency, wavenumber);
+function [dispPhase] = calcDispPhase(disp, enable, direction, frequency, wavenumber)
 
 % INPUTS:
 % disp: body displacement vector, x(1) and y(2) will be used

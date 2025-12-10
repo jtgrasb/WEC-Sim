@@ -56,6 +56,7 @@ function results = wecSimTest(options)
         options.devTest = true
         options.cableTensionTest = true
         options.cicTest = true
+        options.calcDispPhaseTest = true
     end
     
     % Import MATLAB unittest
@@ -94,6 +95,10 @@ function results = wecSimTest(options)
     
     if options.cicTest
         suites = [suites TestSuite.fromFile('tests/cicTest.m')];
+    end
+    
+    if options.calcDispPhaseTest
+        suites = [suites TestSuite.fromFile('tests/calcDispPhaseTest.m')];
     end
     
     % Create TestRunner

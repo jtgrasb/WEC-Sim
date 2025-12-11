@@ -950,7 +950,7 @@ If large lateral displacements (i.e., in the x- or y-direction by the default WE
 
 When :code:`body(i).largeXYDisplacement.option = 1`, the phase of the excitation force exerted on the body is adjusted based upon its displacement as
 
-:math:`\phi_{displacement} = k (x cos(\frac{\theta \pi}{180}) + y sin(\frac{\theta \pi}{180}))`
+:math:`\phi_{displacement} = -k (x cos(\frac{\theta \pi}{180}) + y sin(\frac{\theta \pi}{180}))`
 
 where k is the wavenumber (:code:`waves.wavenumber`), x is the instantaneous displacement relative to the body's center of gravity in the x-direction, y is the instantaneous 
 displacement relative to the body's center of gravity in the y-direction, and :math:`\theta` is the the wave direction in degrees (:code:`waves.direction`). 

@@ -47,7 +47,7 @@ classdef calcDispPhaseTest < matlab.unittest.TestCase
             dx = dx / magnitude * testCase.wavelength/2;
             dy = dy / magnitude * testCase.wavelength/2;
             calculatedPhase = calcDispPhase([dx dy 0], 1, direction, testCase.frequency, testCase.wavenumber);
-            expectedPhase = pi;
+            expectedPhase = -pi;
             testCase.assertEqual(wrapTo2Pi(calculatedPhase), wrapTo2Pi(expectedPhase), 'AbsTol', testCase.tol);
         end
         

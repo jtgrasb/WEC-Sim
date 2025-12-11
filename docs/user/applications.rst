@@ -39,7 +39,9 @@ Desalination
 ^^^^^^^^^^^^
 
 Example using WEC-Sim for desalination based on the :ref:`OSWEC <user-tutorials-oswec>` 
-geometry. Note the dependency on SimScape Fluids to run this desalination case. 
+geometry. See :ref:`user-troubleshooting` for information on degenerate mass 
+errors which necessitate an inertia block between the constraint and PTO.
+Note the dependency on SimScape Fluids to run this desalination case. 
 
 Free Decay
 ^^^^^^^^^^

@@ -369,7 +369,7 @@ classdef responseClass<handle
             tmp = size(data);
             ncol = tmp(2);clear tmp
             for icol=1:ncol
-               eval(['obj.moorDyn(' num2str(iMoor) ').Lines.' header{icol} ' = data(:,' num2str(icol) ');']);
+               eval(['obj.moorDyn(' num2str(iMoor) ').Lines.' header{icol+1} ' = data(:,' num2str(icol) ');']);
             end
             fclose(fid);
             % load Line#.out

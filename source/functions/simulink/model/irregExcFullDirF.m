@@ -2,7 +2,7 @@ function [Fext, relYawLast, coeffsLastMD,coeffsLastRE,coeffsLastIM] = irregExcFu
 
 A1=bsxfun(@plus,omega*time,pi/2);
 A1=repmat(A1,1,length(directions));
-% A = repmat(A,1,length(directions));
+
 %initialize outputs
 Fext = zeros(1,size(dofGRD,1));
 relYawLast=zeros(size(directions));

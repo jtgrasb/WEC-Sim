@@ -345,7 +345,7 @@ The ``spectrumImportFullDir`` case is for irregular wave simulations where the i
 is both frequency and directionally dependent. The user-defined spectrum file must contain a variable 
 called ``frequencies`` defining the wave frequencies (Hz), ``directions`` defining the wave directions 
 (degrees), ``spectrum`` defining the omni-directional wave spectrum (m^2/Hz), and ``spread`` defining the 
-freuqency and directional dependent wave spread (1/Hz/rad). The wave spread (in accordance
+frequency and directionally dependent wave spread (1/Hz/rad). The wave spread (in accordance
 with the IEC TS 62600-2 standard) should satisfy:
 
 :math:`\int_{-\pi}^{\pi} D(f, \theta) \, d\theta = 1`

@@ -16,9 +16,9 @@ function [dispPhase] = calcDispPhase(disp, enable, directions, frequency, wavenu
 dispPhase = zeros(length(frequency),length(directions));
 
 if enable == 1  
-    [dirGrd,wGrd] = meshgrid(directions,frequency);
+    dirGrd = repmat(directions',length(frequency),1);
     waveNumberGrd = repmat(wavenumber,[1 length(directions)]);
-    dispPhase = -waveNumberGrd.*wGrd.*(disp(1).*cos(dirGrd*pi/180) + disp(2).*sin(dirGrd*pi/180));
+    dispPhase = -waveNumberGrd.*(disp(1).*cos(dirGrd*pi/180) + disp(2).*sin(dirGrd*pi/180));
 end
 
 end

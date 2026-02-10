@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Copyright 2014 National Renewable Energy Laboratory and National
+% Copyright 2014 National Laboratory of the Rockies and National
 % Technology & Engineering Solutions of Sandia, LLC (NTESS).
 % Under the terms of Contract DE-NA0003525 with NTESS,
 % the U.S. Government retains certain rights in this software.
@@ -640,6 +640,12 @@ classdef waveClass<handle
             else
                 if ~isempty(bemWaterDepth)
                     warning('Because water depth is specified in the wecSimInputFile, the water depth from the BEM data is ignored')
+                end
+                if isinf(obj.waterDepth)
+                    obj.deepWater = 1;
+                    obj.waterDepth = 200;
+                else
+                    obj.deepWater = 0;
                 end
             end
         end

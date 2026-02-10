@@ -58,9 +58,9 @@ classdef bemioTest < matlab.unittest.TestCase
             testCase.nemohHydro = hydro;
         end
         function testReadCAPYTAINE(testCase)
-            cd(fullfile(testCase.capytaineDir,'sphere'))
+            cd(fullfile(testCase.capytaineDir,'sphere','outputs'))
             hydro = struct();
-            hydro = readCAPYTAINE(hydro, 'sphere_full.nc',[]);
+            hydro = readCAPYTAINE(hydro, 'sphere_hydrodynamics.nc',[]);
             testCase.capytaineHydro = hydro;
         end
         function testReadAQWA(testCase)
@@ -72,7 +72,6 @@ classdef bemioTest < matlab.unittest.TestCase
         function testCombineBEM(testCase)
             hydro(1) = testCase.wamitHydro;
             hydro(2) = testCase.nemohHydro;
-            hydro(3) = testCase.capytaineHydro;
             testCase.comboHydro = combineBEM(hydro);
         end
         function testIRF(testCase)

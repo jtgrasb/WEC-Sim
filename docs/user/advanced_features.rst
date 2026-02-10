@@ -309,7 +309,11 @@ direction. For more information about the spectral formulation, refer to
 
     Users must define appropriate spreading parameters to ensure energy is 
     conserved. Recommended directional spreading functions include 
-    Cosine-Squared and Cosine-2s.
+    Cosine-Squared and Cosine-2s. 
+
+    For full-directional waves, the spreading is defined differently (does not sum to 1) and
+    the parameter `waves.fullDirectionalSpectrum.spread` is used in place of `waves.spread`.
+    Refer to :ref:`user-code-structure-full-dir` for more information.
 
 .. _user-advanced-features-seeded-phase:
 

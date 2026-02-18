@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Copyright 2014 National Renewable Energy Laboratory and National 
+% Copyright 2014 National Laboratory of the Rockies and National 
 % Technology & Engineering Solutions of Sandia, LLC (NTESS). 
 % Under the terms of Contract DE-NA0003525 with NTESS, 
 % the U.S. Government retains certain rights in this software.
@@ -364,7 +364,7 @@ classdef responseClass<handle
             fileRootPath = char(inputStrings(1));
             filename = append(fileRootPath,'.out');
             fid = fopen(filename, 'r');
-            header = strsplit(fgetl(fid));
+            header = strsplit(strtrim(fgetl(fid)));
             data = dlmread(filename,'',1,0);
             tmp = size(data);
             ncol = tmp(2);clear tmp
@@ -595,7 +595,7 @@ classdef responseClass<handle
                     nLeading = ceil(log10(max(t)));
                     tAnnot = sprintf(['time = %' num2str(nDecimals+nLeading+1) '.' num2str(nDecimals) 'f s'],t(i));
                     % Settings and labels
-                    caxis([min(waves.waveAmpTime(:,2)) max(waves.waveAmpTime(:,2))])
+                    clim([min(waves.waveAmpTime(:,2)) max(waves.waveAmpTime(:,2))])
                     colormap winter
                     c = colorbar;
                     ylabel(c, 'Wave Elevation (m)')

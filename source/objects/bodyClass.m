@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Copyright 2014 National Renewable Energy Laboratory and National
+% Copyright 2014 National Laboratory of the Rockies and National
 % Technology & Engineering Solutions of Sandia, LLC (NTESS).
 % Under the terms of Contract DE-NA0003525 with NTESS,
 % the U.S. Government retains certain rights in this software.
@@ -59,8 +59,8 @@ classdef bodyClass<handle
             'rgME',                                 [0 0 0], ...            %
             'z',                                    [0 0 1])                % (`structure`) Defines the Morison Element properties connected to the body. ``option`` (`integer`) for Morison Element calculation, Options: 0 (off), 1 (on) or 2 (on), Default = ``0``, Option 1 uses an approach that allows the user to define drag and inertial coefficients along the x-, y-, and z-axes and Option 2 uses an approach that defines the Morison Element with normal and tangential tangential drag and inertial coefficients. ``cd`` (`1x3 float vector`) is defined as the viscous normal and tangential drag coefficients in the following format, Option 1 ``[cd_x cd_y cd_z]``, Option 2 ``[cd_N cd_T NaN]``, Default = ``[0 0 0]``. ``ca`` is defined as the added mass coefficent for the Morison Element in the following format, Option 1 ``[ca_x ca_y ca_z]``, Option 2 ``[ca_N ca_T NaN]``, Default = ``[0 0 0]``, ``area`` is defined as the characteristic area for the Morison Element [m^2] in the following format, Option 1 ``[Area_x Area_y Area_z]``, Option 2 ``[Area_N Area_T NaN]``, Default = ``[0 0 0]``. ``VME`` is the characteristic volume of the Morison Element [m^3], Default = ``0``. ``rgME`` is defined as the vector from the body COG to point of application for the Morison Element [m] in the following format ``[x y z]``, Default = ``[0 0 0]``. ``z`` is defined as the unit normal vector center axis of the Morison Element in the following format, Option 1 not used, Option 2 ``[n_{x} n_{y} n_{z}]``, Default = ``[0 0 1]``.
         name (1,:) {mustBeText}                     = ''                    % (`string`) Specifies the body name. For hydrodynamic bodies this is defined in h5 file. For nonhydrodynamic bodies this is defined by the user, Default = ``[]``.
-        nonHydro (1,1) {mustBeInteger}              = 0                     % (`integer`) Flag for non-hydro body, Options: 0 (hydro body), 1 or 2 (drag body). Default = ``0``.
-        nonlinearHydro (1,1) {mustBeInteger}        = 0                     % (`integer`) Flag for nonlinear hydrohanamics calculation, Options: 0 (linear), 1 (nonlinear), 2 (nonlinear). Default = ``0``
+        nonHydro (1,1) {mustBeInteger}              = 0                     % (`integer`) Flag for non-hydro body, Options: 0 (hydro body), 1 (drag body), 2 (identical behavior to 1, retained for backwards compatibility). Default = ``0``.
+        nonlinearHydro (1,1) {mustBeInteger}        = 0                     % (`integer`) Flag for nonlinear hydrodynamics calculation, Options: 0 (linear), 1 (nonlinear), 2 (nonlinear). Default = ``0``
         quadDrag (1,:) struct                       = struct(...            % (`structure`)  Defines the viscous quadratic drag forces.
             'drag',                                 zeros(6), ...           %
             'cd',                                   [0 0 0 0 0 0], ...      %
@@ -447,7 +447,7 @@ classdef bodyClass<handle
             g = simu.gravity;
             waveType = waves.type;
             waveAmpTime = waves.waveAmpTime;
-            dirBins = waves.freqDepDirection.dirBins;
+            dirBins = waves.fullDirectionalSpectrum.directions;
             stateSpace = simu.stateSpace;
             B2B = simu.b2b;
             hfName = ['hf' num2str(iH)];
@@ -1032,14 +1032,14 @@ classdef bodyClass<handle
                     obj.hydroForce.(hfName).fExt.md(:,:,ii) = interp2(X, Y, squeeze(md(ii,:,:)), wv, direction);
                 elseif ~isempty(dirBins)
                     [X,Y] = meshgrid(obj.hydroData(iH).simulation_parameters.w, sort(wrapTo180(obj.hydroData(iH).simulation_parameters.direction)));
-                    obj.hydroForce.(hfName).fExt.re(:,:,ii) = interp2(X, Y, squeeze(re(ii,:,:)), repmat(wv,[1 length(dirBins(1,:))]), dirBins,'spline');
-                    obj.hydroForce.(hfName).fExt.im(:,:,ii) = interp2(X, Y, squeeze(im(ii,:,:)), repmat(wv,[1 length(dirBins(1,:))]), dirBins,'spline');
-                    obj.hydroForce.(hfName).fExt.md(:,:,ii) = interp2(X, Y, squeeze(md(ii,:,:)), repmat(wv,[1 length(dirBins(1,:))]), dirBins,'spline');
-                elseif obj.hydroData.simulation_parameters.direction == direction
+                    obj.hydroForce.(hfName).fExt.re(:,:,ii) = interp2(X, Y, squeeze(re(ii,:,:)), repmat(wv,[1 length(dirBins)]), dirBins,'spline');
+                    obj.hydroForce.(hfName).fExt.im(:,:,ii) = interp2(X, Y, squeeze(im(ii,:,:)), repmat(wv,[1 length(dirBins)]), dirBins,'spline');
+                    obj.hydroForce.(hfName).fExt.md(:,:,ii) = interp2(X, Y, squeeze(md(ii,:,:)), repmat(wv,[1 length(dirBins)]), dirBins,'spline');
+                elseif obj.hydroData(iH).simulation_parameters.direction == direction
                     obj.hydroForce.(hfName).fExt.re(:,:,ii) = interp1(obj.hydroData(iH).simulation_parameters.w,squeeze(re(ii,1,:)),wv,'spline').';
                     obj.hydroForce.(hfName).fExt.im(:,:,ii) = interp1(obj.hydroData(iH).simulation_parameters.w,squeeze(im(ii,1,:)),wv,'spline').';
                     obj.hydroForce.(hfName).fExt.md(:,:,ii) = interp1(obj.hydroData(iH).simulation_parameters.w,squeeze(md(ii,1,:)),wv,'spline').';
-                elseif length(obj.hydroData.simulation_parameters.direction) > 1 && ~isempty(dirBins)
+                elseif length(obj.hydroData(iH).simulation_parameters.direction) > 1 && ~isempty(dirBins)
                     error('multiple wave directions are unsupported when using a fully resolved directional spectra')
                 end
             end
@@ -1048,17 +1048,18 @@ classdef bodyClass<handle
                 BEMdir = sort(obj.hydroData(iH).simulation_parameters.direction);
                 boundDiff(1) = abs(-180 - BEMdir(1));
                 boundDiff(2) = abs(180 - BEMdir(end));
-                if obj.yaw.option == 1 && length(BEMdir)<3 || std(diff(BEMdir))>5 || max(boundDiff)>15
+                if obj.yaw.option == 1 && (length(BEMdir)<3 || std(diff(BEMdir))>5 || max(boundDiff)>15)
                     warning(['Passive yaw is not recommended without BEM data spanning a full yaw rotation -180 to 180 dg.' newline ...
                         'Please inspect BEM data for gaps'])
                     clear boundDiff
                 end
                 if ~isempty(dirBins)
+                    dirBins = wrapTo180(dirBins);
                     BEMdir = wrapTo180(BEMdir - 180);
                     boundDiff(1) = abs(min(dirBins,[],'all') - BEMdir(1));
                     boundDiff(2) = min(abs(max(dirBins,[],'all') - BEMdir(end)),...
                                        abs(max(dirBins,[],'all') - 180-BEMdir(1)));
-                    [obj.hydroForce.(hfName).fExt.qDofGrd,~,obj.hydroForce.(hfName).fExt.qWGrd] = ndgrid([1:nDOF],dirBins(1,:),wv); % this is necessary for nd interpolation; query grids be same size as dirBins.
+                    [obj.hydroForce.(hfName).fExt.qDofGrd,~,obj.hydroForce.(hfName).fExt.qWGrd] = ndgrid([1:nDOF],dirBins,wv); % this is necessary for nd interpolation; query grids be same size as dirBins.
                     if length(BEMdir)<3 || max(boundDiff)>15
                         warning(['BEM directions do not cover the directional spread bins or are too coarse to define spread bin distribution.' newline ...
                             'Re-run with more bins']);
